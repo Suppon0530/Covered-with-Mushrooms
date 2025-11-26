@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 // キノコ管理クラス
 public class MushroomMgr : MonoBehaviour
@@ -40,7 +41,7 @@ public class MushroomMgr : MonoBehaviour
     void Update()
     {
         // マウスがドラッグされている場合またはタッチが行われている場合
-        if (Input.GetMouseButton(0))
+        if (Pointer.current.press.isPressed)
         {
             if(count_time < 0) {
                 SpawnMushroom();
@@ -57,7 +58,7 @@ public class MushroomMgr : MonoBehaviour
         // targetオブジェクトが生成されている場合のみ
         if(alive) {
             // マウスまたはタッチの位置にキノコを生成
-            Vector3 spawnPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 spawnPosition = Camera.main.ScreenToWorldPoint(Pointer.current.position.ReadValue());
             spawnPosition.z = 0f;
 
             // タッチ位置yが-5.0 < y <-3.0の場合、キノコインスタンスを生成
